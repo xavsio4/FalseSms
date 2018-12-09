@@ -24,3 +24,7 @@ npm run test
 ```
 npm run lint
 ```
+
+##Depencies
+Dom2image
+[https://github.com/tsayen/dom-to-image]
