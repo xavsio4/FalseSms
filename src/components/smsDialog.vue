@@ -7,7 +7,7 @@
     <br>
     <h2>Create funny false dialogs and get the Jpeg to share it.</h2>
     <br>
-    <H4>Name the texters</H4>
+    <H4>1. Name the texters</H4>
     
     <div class="row">
       <div class="col-md-6">
@@ -22,10 +22,20 @@
         <p class="message message-out"><strong>{{texters[1] | capitalize}}</strong></p>
       </div>
     </div><!-- //row -->
-
     <br>
-    <h4>Satisfied ? Download the image</h4>
+    <h4>2. Now, type a dialog in the sms window</h4>
+    <br>
+    <h4>3. Satisfied ? Download the image</h4>
     <a class="btn btn-success" @click.prevent="getImage()" href="#">Download image</a>
+    <p class="hint-block">
+      Nothing personal is stored with this site, not even a cookie. We only increase the click of the download counter.
+    </p>
+    <br>
+    <p>
+      <strong>The download button has been clicked times. We assume then that the same number of 
+        false dialogs have been created.
+      </strong>
+    </p>
   </div><!-- //col-md-4 -->
 
   <div class="col-md-6">
