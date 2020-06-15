@@ -1,42 +1,50 @@
 <template>
   <div class="container-message-manager">
     <b-row>
-      <b-col>
+      <b-col class="select-participant">
         Choose who is talking
-        <b-select v-model="selectedId" :options="selectParticipants"></b-select>
+        <b-select
+          size="sm"
+          v-model="selectedId"
+          :options="selectParticipants"
+        ></b-select>
       </b-col>
     </b-row>
-    <div class="row message-text-box">
-      <div
-        ref="userInput"
-        class="message-input"
-        :placeholder="placeholder"
-        tabIndex="0"
-        contenteditable="true"
-        @input="handleType"
-        @keyup.enter.exact="sendMessage"
-      ></div>
-    </div>
-    <div
-      class="container-send-message icon-send-message"
-      @click.prevent="sendMessage"
-    >
-      <SendIcon :size="submitIconSize" fill-color="#FF9988" />
-    </div>
-    <div
-      v-if="sendImages"
-      class="container-send-message icon-send-message"
-      @click="pickImage"
-    >
-      <input
-        ref="inputImage"
-        accept="image/*"
-        type="file"
-        style="display: none;"
-        @input="handleImageChange"
-      />
-      <ImageIcon size="24" fill-color="#FF9988" />
-    </div>
+    <b-row class="message-text-box">
+      <b-col>
+        <input
+        type="text"
+        v-model="textInput"
+          ref="userInput"
+          class="message-input"
+          :placeholder="placeholder"
+          tabIndex="0"
+          contenteditable="true"
+          @input="handleType"
+          @keyup.enter.exact="sendMessage"
+        ></input>
+        <div
+          class="container-send-message icon-send-message"
+          @click.prevent="sendMessage"
+        >
+          <SendIcon :size="submitIconSize" fill-color="#FF9988" />
+        </div>
+        <div
+          v-if="sendImages"
+          class="container-send-message icon-send-message"
+          @click="pickImage"
+        >
+          <input
+            ref="inputImage"
+            accept="image/*"
+            type="file"
+            style="display: none;"
+            @input="handleImageChange"
+          />
+          <ImageIcon size="24" fill-color="#FF9988" />
+        </div>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -45,6 +53,7 @@ import { mapMutations, mapState } from "vuex";
 import { DateTime } from "luxon";
 import SendIcon from "vue-material-design-icons/Send";
 import ImageIcon from "vue-material-design-icons/Image";
+
 export default {
   components: {
     SendIcon,
@@ -109,10 +118,12 @@ export default {
   },
   methods: {
     sendMessage(e) {
-      this.textInput = this.$refs.userInput.textContent;
-      this.$refs.userInput.textContent = "";
+    //  this.textInput = this.$refs.userInput.textContent;
+    //  console.log(this.$refs.userInput.textContent);
+    //  this.$refs.userInput.textContent = "";
+        console.log(this.textInput);
 
-      if (this.textInput && this.selectedId) {
+      if (this.textInput && this.selectedId > 0) {
         let inputLen = this.textInput.length;
         let inputText = this.textInput;
         if (this.textInput[inputLen - 1] === "\n") {
@@ -129,7 +140,9 @@ export default {
         };
         this.$emit("onMessageSubmit", message);
         this.$store.dispatch("chat/newMessage", message);
+
       }
+      this.textInput = ""
     },
     handleType: function(e) {
       this.$emit("onType", e);
@@ -158,10 +171,14 @@ export default {
 </script>
 
 <style>
+.select-participant {
+  margin-bottom: 8px;
+}
 .container-message-manager {
-  height: 65px;
+  height: 116px;
   background: #fff;
-  display: flex;
+
+  /*display: flex;*/
   align-items: center;
   padding: 0 20px 0 20px;
   -webkit-box-shadow: 0px -2px 40px 0px rgba(186, 186, 186, 0.67);
@@ -174,7 +191,7 @@ export default {
 }
 
 .message-input {
-  width: 100%;
+  width: 70%;
   resize: none;
   border: none;
   outline: none;
@@ -222,6 +239,7 @@ export default {
   transition: 0.3s;
   border-radius: 11px;
   padding: 8px;
+  float: right;
 }
 
 .icon-send-message:hover {

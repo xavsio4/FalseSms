@@ -43,19 +43,28 @@ export const mutations = {
         state.placeholder = placeholder;
     },
     ADD_TO_PARTICIPANT: (state, payload) => {
+        state.lrtoggle = !state.lrtoggle;
         state.participants.push({
             name: payload.name,
             id: payload.id,
-            profilePicture: payload.profilePicture
+            profilePicture: payload.profilePicture,
+            side: (state.lrtoggle) ? 'l' : 'r'
         });
         state.idp++;
     },
     NEW_MESSAGE: (state, message) => {
-        state.lrtoggle = !state.lrtoggle;
-        message.side = (state.lrtoggle) ? 'l' : 'r';
         message.timestamp = message.timestamp.toISO();
         state.messages = [...state.messages, message];
     },
+    RESET_ALL: (state) => {
+        state.messages = []
+        state.lrtoggle = false //false is left and right toggle
+        state.myself = {}
+        state.participants = []
+        state.chatTitle = ''
+        state.placeholder = 'send your message'
+        state.idp = 1
+    }
 }; //mutations
 
 /**
@@ -67,6 +76,9 @@ export const actions = {
     },
     addParticipant({ commit }, params) {
         commit('ADD_TO_PARTICIPANT', params.newParticipant)
+    },
+    resetAll({ commit }) {
+        commit('RESET_ALL')
     },
 
     subCount({ commit }) {

@@ -22,6 +22,7 @@
       </b-form-group>
       <b-form-group label="Name " label-for="input-1">
         <b-input
+          size="sm"
           id="input-1"
           class="mb-2 mr-sm-2 mb-sm-0"
           placeholder="Jane Doe"
@@ -29,7 +30,7 @@
           required
         ></b-input>
       </b-form-group>
-      <b-button type="submit" variant="primary">Add</b-button>
+      <b-button type="submit" size="sm" variant="primary">Add</b-button>
     </b-form>
     <b-list-group style="max-width: 300px;" flush>
       <b-list-group-item

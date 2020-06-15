@@ -1,7 +1,8 @@
 <template>
   <div>
     <h3>Sms Dialog</h3>
-    <a href="#" @click="capture">capture</a>
+    <CameraIcon @click="capture" size="24" fill-color="#FF9988" />
+    <a href="#" @click="resetAll" class="align-right">Reset all</a>
     <b-card class="dialog-widget">
       <div id="chatwindow" class="container-dialog">
         <div v-if="loading" class="loader">
@@ -12,19 +13,11 @@
           :key="message.id"
           class="message-container"
         >
-          <div :class="rightOrLeft(message.side)">
-            <div class="thum-container">
-              <img
-                :src="getParticipantById(message.participantId).profilePicture"
-                class="participant-thumb"
-                style="width: 30px; height: 30px; border-radius: 50%;"
-              />
-            </div>
+          <div
+            :class="rightOrLeft(getParticipantById(message.participantId).side)"
+          >
             <div class="message-content">
-              <div
-                class="message-text"
-                style="background: rgb(251, 65, 65); color: rgb(255, 255, 255);"
-              >
+              <div class="message-text" style="">
                 <p class="message-username">
                   {{ getParticipantById(message.participantId).name }}
                 </p>
@@ -34,6 +27,13 @@
                 {{ message.timestamp }}
                 <!---->
               </div>
+            </div>
+            <div class="thumb-container">
+              <img
+                :src="getParticipantById(message.participantId).profilePicture"
+                class="participant-thumb"
+                style="width: 30px; height: 30px; border-radius: 50%;"
+              />
             </div>
           </div>
         </div>
@@ -48,9 +48,10 @@ import { mapMutations, mapState, mapGetters } from "vuex";
 import { DateTime } from "luxon";
 import domtoimage from "dom-to-image";
 import MessageManager from "@/components/MessageManager.vue";
+import CameraIcon from "vue-material-design-icons/Camera";
 export default {
   name: "smsDialog",
-  components: { MessageManager },
+  components: { MessageManager, CameraIcon },
   data: function() {
     return {
       loading: false,
@@ -94,7 +95,9 @@ export default {
     }
   },
   methods: {
-    capture() {},
+    resetAll() {
+      this.$store.dispatch("chat/resetAll");
+    },
     rightOrLeft(e) {
       return e === "l" ? "left-message-body" : "right-message-body";
     },
@@ -196,6 +199,11 @@ export default {
   border-radius: 50%;
   margin-left: 10px;
 }
+
+.right-message-body .message-content {
+  color: #333;
+  background: #eee;
+}
 .message-timestamp {
   padding: 2px 7px;
   border-radius: 15px;
@@ -218,7 +226,7 @@ img {
   vertical-align: middle;
   border-style: none;
 }
-.message-text {
+.left-message-body .message-text {
   background: #fff;
   padding: 6px 10px;
   line-height: 14px;
@@ -228,8 +236,10 @@ img {
   overflow-wrap: break-word;
   text-align: left;
   white-space: pre-wrap;
-  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
   word-break: break-word;
+  background: rgb(251, 65, 65);
+  color: rgb(255, 255, 255);
 }
 
 .left-message-body .participant-thumb {
@@ -246,13 +256,13 @@ img {
   padding-left: 10px;
 }
 
-.left-message .message-content {
+.left-message-body .message-content {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
 }
-.left-message .participant-thumb {
+.left-message-body .participant-thumb {
   /* width: 25px;
             height: 25px;
             border-radius: 50%; */
@@ -271,7 +281,7 @@ img {
   display: flex;
   align-items: center;
 }
-.left-message .message-text {
+.right-message-body .message-text {
   background: #fff;
   padding: 6px 10px;
   line-height: 14px;
@@ -281,7 +291,7 @@ img {
   overflow-wrap: break-word;
   text-align: left;
   white-space: pre-wrap;
-  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
   word-break: break-word;
 }
 </style>

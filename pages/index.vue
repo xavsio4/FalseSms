@@ -2,10 +2,10 @@
   <b-container>
     <logo></logo>
     <b-row>
-      <b-col>
+      <b-col cols="5">
         <participants></participants>
       </b-col>
-      <b-col>
+      <b-col cols="7">
         <sms-dialog></sms-dialog>
       </b-col>
     </b-row>
@@ -16,8 +16,6 @@
 <script>
 import Logo from "@/components/Logo.vue";
 import SmsDialog from "@/components/smsDialog.vue";
-//import { Chat } from "vue-quick-chat";
-//import "vue-quick-chat/dist/vue-quick-chat.css";
 
 import Footerc from "@/components/Footer.vue";
 import Participants from "@/components/Participants.vue";
@@ -239,16 +237,4 @@ export default {
 };
 </script>
 
-<style>
-.img-preview {
-  border-radius: 50% !important;
-  width: 2.5em;
-  height: 2.5em;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-    box-shadow 0.15s ease-in-out;
-}
-</style>
+<style></style>
