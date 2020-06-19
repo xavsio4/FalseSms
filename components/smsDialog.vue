@@ -16,6 +16,16 @@
           <div
             :class="rightOrLeft(getParticipantById(message.participantId).side)"
           >
+            <div
+              class="thumb-container"
+              v-if="getParticipantById(message.participantId).side === 'l'"
+            >
+              <img
+                :src="getParticipantById(message.participantId).profilePicture"
+                class="participant-thumb"
+                style=""
+              />
+            </div>
             <div class="message-content">
               <div class="message-text" style="">
                 <p class="message-username">
@@ -28,11 +38,14 @@
                 <!---->
               </div>
             </div>
-            <div class="thumb-container">
+            <div
+              class="thumb-container"
+              v-if="getParticipantById(message.participantId).side === 'r'"
+            >
               <img
                 :src="getParticipantById(message.participantId).profilePicture"
                 class="participant-thumb"
-                style="width: 30px; height: 30px; border-radius: 50%;"
+                style=""
               />
             </div>
           </div>
@@ -194,10 +207,10 @@ export default {
   flex-direction: column;
 }
 .right-message-body .participant-thumb {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
   margin-left: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
 
 .right-message-body .message-content {
@@ -244,6 +257,12 @@ img {
 
 .left-message-body .participant-thumb {
   margin-right: 10px;
+}
+
+.participant-thumb {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
 
 .left-message-body {
