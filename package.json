@@ -19,7 +19,7 @@
     "bootstrap-vue": "^2.15.0",
     "dom-to-image": "^2.6.0",
     "luxon": "^1.24.1",
-    "nuxt": "^2.12.2",
+    "nuxt": "^2.15.8",
     "vue-image-upload-resize": "^2.3.0",
     "vue-quick-chat": "^1.2.2"
   },
